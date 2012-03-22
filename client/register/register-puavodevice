@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
 #
 # Puavo Devices Client Register
 # * simple command-line script for registering devices
@@ -20,6 +21,7 @@ require 'openssl'
 require 'resolv'
 require 'socket'
 require 'yaml'
+require 'digest/sha1'
 
 def colormsg(msg, tag, color)
   HighLine.say(HighLine.new.color("*** #{ tag }: #{ msg }", color))
@@ -480,6 +482,65 @@ class PostRegisterConfiguration
       f.print @register_info['host_configuration'].to_yaml
     end
     goodmsg('Host configuration file is written.')
+  end
+end
+
+# Iivari client key generation and verification REST API client.
+class IivariClientKeyConnection
+
+  # Iivari server host and port are given at init.
+  def initialize host, port, username, password
+    @host = host
+    @port = port
+    @username = username
+    @password = password
+  end
+
+  def generate hostname
+    post "/authkey/generate", [
+      "username=#{@username}",
+      "password=#{@password}",
+      "hostname=#{hostname}",
+      ].join("&")
+  end
+
+  def verify hostname, key
+    data = [
+      "username=#{@username}",
+      "password=#{@password}",
+      ].join("&")
+    verifier = Digest::SHA1.hexdigest "#{hostname}:#{key}"
+    token = hostname + ":" + verifier
+    response = self.post "/authkey/verify", data, { "X-IIVARI-AUTH" => token }
+    response == "ok"
+  end
+
+  @@debug = false
+
+  protected
+
+  def post path, data, headers={}
+    http = Net::HTTP.new(@host, @port)
+    http.use_ssl = true
+    http.ca_path = '/etc/ssl/certs'
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+    http.verify_depth = 5
+    http.set_debug_output($stderr) if @@debug
+
+    begin
+      resp = http.post(path, data, headers)
+      case resp
+      when Net::HTTPSuccess
+        return resp.body
+      else
+        $stderr.puts resp.message
+        $stderr.puts resp.body
+        return nil
+      end
+    rescue OpenSSL::SSL::SSLError => e
+      $stderr.puts e
+      return nil
+    end
   end
 end
 
