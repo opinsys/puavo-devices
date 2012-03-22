@@ -559,3 +559,22 @@ rui = RegisterUserInterface.new(cmdline_params, cert)
 register_info = rui.register_to_server()
 
 PostRegisterConfiguration.new(cert, register_info).setup
+
+# Generate Iivari client key
+hostname = "hostname"   # client hostname
+server   = "localhost"  # iivari server and port
+port     = 8443
+username = "x"          # user credentials
+password = "pwd"
+
+keygen = IivariClientKeyConnection.new server, port, username, password
+key = keygen.generate hostname
+if key
+  puts "Received Iivari client key: #{key}"
+  # verify key
+  if keygen.verify hostname, key
+    puts "Iivari client key is verified"
+  else
+    puts "WARNING: key is NOT verified!"
+  end
+end
