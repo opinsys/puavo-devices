@@ -1,6 +1,6 @@
 <h1><span><%= t('.title') %></span></h1>
 
-<table class='list'>
+<table class='list full-width-list'>
   <tr>
     <th><%= t('activeldap.attributes.device.puavoHostname') %></th>
     <th><%= t('activeldap.attributes.device.puavoDeviceType') %></th>
@@ -17,8 +17,8 @@
     <td><%=h device.puavoDeviceManufacturer %></td>
     <td><%=h device.puavoDeviceModel %></td>
     <td><%=h device.serialNumber %></td>
-    <td><%= link_to t('link.edit'), edit_device_path(@school, device) %></td>
-    <td><%= link_to t('link.destroy'), device_path(@school, device), :confirm => t('destroy_confirm', :object_name => device.puavoHostname), :method => :delete %></td>
+    <td class="user_actions"><%= link_to t('link.edit'), edit_device_path(@school, device), :class => "btn" %></td>
+    <td class="user_actions"><%= link_to t('link.destroy'), device_path(@school, device), :confirm => t('destroy_confirm', :object_name => device.puavoHostname), :method => :delete, :class => "btn btn-danger" %></td>
   </tr>
 <% end %>
 </table>

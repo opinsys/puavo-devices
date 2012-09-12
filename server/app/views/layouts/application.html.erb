@@ -101,8 +101,8 @@
         </ul> <!-- top-menu -->
 
         <ul id="top-menu-right" class="menu">
-          <li><span><%= t('.logged_in_as') %></span></li>
-          <li><a href="#"><%= current_user_displayName %></a></li>
+          <li class="login_username_description"><span><%= t('.logged_in_as') %></span></li>
+          <li class="login_username"><a href="#"><%= current_user_displayName %></a></li>
           <li><%= link_to t('.logout'), logout_path, :method => :delete %></li>
         </ul>
       </div><!-- topNavContentContainer -->
@@ -110,7 +110,7 @@
 
   <div id="container" class="container">
     <div class="container_wrap">
-          <hr class="space" />
+          <div class="space"></div>
         <% if session[:organisation] %>
         <% if @school && !@school.id.nil? %>
           <h1><%= @school.displayName %></h1>
@@ -142,7 +142,7 @@
         <% end %>
         <% end %>
 
-        <hr class="space" />
+        <div class="space"></div>
         <div class="wrap">
           <div class="maincontent">
 
@@ -152,12 +152,13 @@
                 <% end %>
               <% end %>
               <% if current_user %>
-                <div class="tools">
+                <div class="tools devices">
                   <%= yield :right %>
                 </div>
               <% end %>
               <%= yield %>
             </div> <!-- maincontent -->
+            <div class="space"></div>
 
 
       </div> <!-- wrap -->
