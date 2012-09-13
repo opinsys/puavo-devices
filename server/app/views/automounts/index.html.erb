@@ -9,8 +9,8 @@
 <% @automounts.each do |automount| %>
   <tr>
     <td><%=h automount.cn %></td>
-    <td><%= link_to t('link.edit'), edit_server_automount_path(@server, automount) %></td>
-    <td><%= link_to t('link.destroy'), server_automount_path(@server, automount), :confirm => t('destroy_confirm', :object_name => automount.cn), :method => :delete %></td>
+    <td><%= link_to t('link.edit'), edit_server_automount_path(@server, automount), :class => "btn" %></td>
+    <td><%= link_to t('link.destroy'), server_automount_path(@server, automount), :confirm => t('destroy_confirm', :object_name => automount.cn), :method => :delete, :class => "btn btn-danger" %></td>
   </tr>
 <% end %>
 </table>

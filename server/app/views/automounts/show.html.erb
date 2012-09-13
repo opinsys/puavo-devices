@@ -1,4 +1,4 @@
-<table>
+<table class="list">
 <tr>
   <td class="label_td view"><%= label @automount.class.to_s.downcase, "cn" %></td>
   <td class="value_td"><%=h @automount.cn %></td>
@@ -6,6 +6,10 @@
 </table>
 
 <% content_for :right do %>
-<%= link_to t('link.edit'), edit_server_automount_path(@server, @automount) %><br &>
-<%= link_to t('link.back'), server_automounts_path(@server) %>
+<div>
+  <%= link_to t('link.edit'), edit_server_automount_path(@server, @automount) %>
+</div>
+<div>
+  <%= link_to t('link.back'), server_automounts_path(@server), :class => "automount_back" %>
+</div>
 <% end %>

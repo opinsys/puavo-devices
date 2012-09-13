@@ -33,10 +33,10 @@
     </tr>
 -->
   </table>
-  <table>
-    <tr><td>
+  <div class="submit_button_container">
     <%= f.submit submit_text %> 
-    <div class="cancel"> <%=link_to t('cancel'), @server, :class => 'cancel_button' %> </div>
-    </tr></td>
-  </table>
+    <div class="cancel"> 
+      <%=link_to t('cancel'), @server, :class => 'cancel_button' %> 
+    </div>
+  </div> 
 <% end %>

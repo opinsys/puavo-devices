@@ -10,7 +10,9 @@
 </table>
 <div class="submit_button_container">
   <%= f.submit submit_text %> 
-  <div class="cancel"> <%=link_to t('cancel'), server_automounts_path(@server), :class => 'cancel_button' %> </div>
+  <div class="cancel"> 
+    <%=link_to t('cancel'), server_automounts_path(@server), :class => 'cancel_button' %> 
+  </div>
 </div>
 
 <% end %>
