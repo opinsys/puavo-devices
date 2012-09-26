@@ -1,5 +1,5 @@
 
-<% form_for(@automount, :url => path, :html => { :method => method}) do |f| %>
+<% form_for(@automount, :url => path, :html => { :method => method, :autocapitalize =>"off"}) do |f| %>
   <%= f.error_messages %>
 
 <table>
