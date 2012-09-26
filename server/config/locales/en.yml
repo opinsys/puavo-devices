@@ -146,6 +146,7 @@ en:
     forms:
       required_field: "* = Required field"
   link:
+    more: More
     edit: Edit
     back: Back
     destroy: Destroy

@@ -144,6 +144,7 @@ fi:
     forms:
       required_field: "* = Pakollinen tieto"
   link:
+    more: Muut toiminnot
     edit: Muokkaa
     back: Takaisin
     destroy: Poista
